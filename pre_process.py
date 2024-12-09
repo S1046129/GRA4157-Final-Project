@@ -25,25 +25,25 @@ def pre_process_visuals(disease_data_df):
     '''
     # Print the shape 
     print("Data Shape: ", disease_data_df.shape)
-
+    print("--" * 50)
     # Print the data types for each column 
     print("Data Types: \n", disease_data_df.dtypes)
-
+    print("--" * 50)
     # Check for NaN values 
     print("Check for NaN values: \n", disease_data_df.isna().sum())
-
+    print("--" * 50)
     # Check som dataframe statistics 
     print("Data Description: \n", disease_data_df.describe())
-
+    print("--" * 50)
     # Check for duplicate rows grouped by diseases
     duplicate_counts = disease_data_df[disease_data_df.duplicated()].groupby('Disease').size().reset_index(name='Count')
     print(duplicate_counts)
-
+    print("--" * 50)
     # Get unique rows
     unique_rows = disease_data_df.drop_duplicates()
     unique_count = unique_rows.shape[0]
     print(f"\nNumber of unique rows: {unique_count}")
-
+    print("--" * 50)
     # Flatten the DataFrame
     symptoms_melted = disease_data_df.melt(id_vars=['Disease'],
                           value_vars=[col for col in disease_data_df.columns if 'Symptom' in col],
