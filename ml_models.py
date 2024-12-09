@@ -2,7 +2,7 @@
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score, classification_report
 
-from visuals import create_learning_curves
+from visuals import create_learning_curves, create_conf_matirx
 
 def grid_search(param_grid, X, y, estimator):
     '''
@@ -40,7 +40,7 @@ def decision_tree(X, y, tree_model):
 
     Splits the data into training and testing sets, fits the provided decision tree model
     on the training data, makes predictions on the test data, and prints the accuracy
-    and classification report. Also generates learning curves.
+    and classification report. Also generates learning curves and heatmap of the confusion matrix.
 
     Parameters:
         X (pandas.DataFrame): The feature dataset.
@@ -64,6 +64,7 @@ def decision_tree(X, y, tree_model):
     print("\nClassification Report:\n", classification_report(y_test, y_pred, zero_division=0))
     
     create_learning_curves(tree_model, X, y, "Decision Tree")
+    create_conf_matirx(y_test, y_pred, y.unique(), "Decision Tree")
     
     return tree_model
 
@@ -73,7 +74,7 @@ def random_forest(X, y, rf_model):
 
     Splits the data into training and testing sets, fits the provided random forest model
     on the training data, makes predictions on the test data, and prints the accuracy
-    and classification report. Also generates learning curves.
+    and classification report. Also generates learning curves and heatmap of the confusion matrix
 
     Parameters:
         X (pandas.DataFrame): The feature dataset.
@@ -95,6 +96,7 @@ def random_forest(X, y, rf_model):
     print("\nClassification Report:\n", classification_report(y_test, y_pred))
     
     create_learning_curves(rf_model, X, y, "Random Forest")
+    create_conf_matirx(y_test, y_pred, y.unique(), "Random Forest")
     
     return rf_model
 
@@ -104,7 +106,7 @@ def gradient_boosting(X, y, gb_model):
 
     Splits the data into training and testing sets, fits the provided gradient boosting model
     on the training data, makes predictions on the test data, prints the accuracy and classification report,
-    and generates learning curves.
+    and generates learning curves and heatmap of the confusion matrix
 
     Parameters:
         X (pandas.DataFrame): The feature dataset
@@ -131,5 +133,6 @@ def gradient_boosting(X, y, gb_model):
     print("Classification Report:\n", report_gb)
     
     create_learning_curves(gb_model, X, y, "Gradient Boosting")
+    create_conf_matirx(y_test, y_pred, y.unique(), "Gradient Boosting")
     
     return gb_model
