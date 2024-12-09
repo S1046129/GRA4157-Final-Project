@@ -1,5 +1,6 @@
 # Import ML Libraries
 from sklearn.model_selection import learning_curve
+from sklearn.metrics import confusion_matrix
 
 # Import plotting Libraries 
 import matplotlib.pyplot as plt 
@@ -46,12 +47,13 @@ def symptoms_melted_df_plots(symptoms_melted_df, plot_type):
     Raises:
         ValueError: If an invalid `plot_type` is provided.
     '''
+    
+    overall_symptom_count = symptoms_melted_df.groupby('Symptom').size().reset_index(name='Total_Count')
+
+    # get the top 15 most common symptoms
+    top_symptoms = overall_symptom_count.nlargest(15, 'Total_Count')
+    
     if plot_type == "common":
-        overall_symptom_count = symptoms_melted_df.groupby('Symptom').size().reset_index(name='Total_Count')
-
-        # get the top 15 most common symptoms
-        top_symptoms = overall_symptom_count.nlargest(15, 'Total_Count')
-
         # plot
         plt.figure(figsize=(12, 8))
         sns.barplot(data=top_symptoms, x='Symptom', y='Total_Count')
@@ -173,4 +175,27 @@ def top_15_features(feature_importances, features):
     plt.gca().invert_yaxis()
     plt.xlabel('Importance')
     plt.title('Top 15 Most Important Symptoms for Disease Prediction')
+    plt.show()
+
+def create_conf_matirx(y_test, y_pred, class_names, model_name):
+    '''
+    Plots a heatmap of the confusion matrix.
+
+    Parameters:
+    y_test (array-like): True class labels.
+    y_pred (array-like): Predicted class labels.
+    class_names (list): List of class names corresponding to the labels.
+
+    Returns:
+    None
+    '''
+    conf_matrix = confusion_matrix(y_test, y_pred)
+    
+    # Plot confusion matrix
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", 
+            xticklabels=class_names, yticklabels=class_names)
+    plt.xlabel("Predicted Classes")
+    plt.ylabel("True Classes")
+    plt.title(f"Confusion Matrix - {model_name}")
     plt.show()
