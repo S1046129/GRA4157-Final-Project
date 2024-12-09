@@ -1,6 +1,8 @@
+
 # GRA4157
 
 This is our Final Project for The course Data Curation 
+
 Disease Prediction 
 
 This Github repository is meant to be able to reproduce the findings from our Disease Prediction Scientific Report 
