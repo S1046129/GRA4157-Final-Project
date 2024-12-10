@@ -19,6 +19,6 @@ data folder : Contains the dataset in dataset.csv
 
 *** Take note that param_grids are commented out as it takes long to run these, but the current DT and GB model has the optimal hyperparameters based on the Grid Search. *** 
 
-*** Gradient Bossting might take a while to create the learning curves  grapgh ***
+*** Gradient Bossting takes a while to create the learning curves plot***
 
 
