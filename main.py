@@ -87,8 +87,8 @@ def main ():
     print("--" * 50)
     ### Fine tune and use the X_reduced, with less features
     rf2 = RandomForestClassifier(
-        n_estimators=60,
-        max_depth=5,
+        n_estimators=80,
+        max_depth=7,
         min_samples_split=5,
         min_samples_leaf=2,
         random_state=42,
